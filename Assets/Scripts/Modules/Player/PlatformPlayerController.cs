@@ -184,10 +184,20 @@ public class PlatformPlayerController : Observer
         return false;
     }
 
+    public bool HandleDashInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            return true;
+        } 
+        return false;
+    }   
+
+
 
     public bool HandleMeleeInput()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             return true;
         }
