@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0761372510a263749b0ae1f680cdcb8a, type: 3}
+  m_Name: SO_Player_Config
+  m_EditorClassIdentifier: 
+  jumpHeight: 15.94
+  runningSpeed: 9
+  attackHoriSpeedScale: 0
+  jumpGravityScale: 0
+  inputRate: 0.8
+  coyoteTime: 0.2
+  groundCheckBoxSize: {x: 0.5, y: 0.5}
+  initGravityScale: 4
+  inputCacheTime: 0.25
+  gravityFalling: 1.403
+  ascendingGravityStep: 0.035
+  runningAcceleration: 2.5
+  runningBrakingAbility: 3
+  smallestJumpFrameCount: 4
+  maxPlayerHp: 0
+  playerMeleeDmg: 0
+  playerStunTime: 0
+  playerInvincibleTime: 0
+  jumpSoundAsset: {fileID: 0}
+  dieSoundAsset: {fileID: 0}
