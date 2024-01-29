@@ -321,7 +321,41 @@ public class PlayerFSM : BaseFSM
             throw new System.NotImplementedException();
         }
     }
-    
+
+    public class DashState : PlayerBaseState
+    {
+        public DashState(PlatformPlayerController mono) : base(mono)
+        {
+            controller = mono;
+            EnterState();
+        }
+        public override void EnterState()
+        {
+
+        }
+        public override void HandleUpdate()
+        {
+
+        }
+        public override void HandleFixedUpdate()
+        {
+
+        }
+        public override void ExitState()
+        {
+
+        }
+        public override void HandleCollide2D(Collision2D collision)
+        {
+
+        }
+
+        public override void HandleTrigger2D(Collider2D collider)
+        {
+
+        }
+    }
+
 
     public class MeleeState  : PlayerBaseState
     {
