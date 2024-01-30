@@ -44,11 +44,11 @@ public class PlatformPlayerController : Observer
     public float groundSpeed;
     [HideInInspector]
     public bool isCoyote = false;
-    [HideInInspector]
-    public float dashTime = 1f;
+
+    public float dashTime = 0.3f;
     [HideInInspector]
     public float dashTimer = 0f;
-    public float dashSpeed = 1f;
+    public float dashSpeed = 10f;
 
 
     [HideInInspector]
@@ -138,13 +138,13 @@ public class PlatformPlayerController : Observer
 
     public void Dash()
     {
-        if (groundSpeed > 0)
+        if (transform.localScale.x == 1)
         {
             rig.velocity = new Vector2(dashSpeed, 0);
         }
-        if (groundSpeed < 0)
+        if (transform.localScale.x == -1)
         {
-            rig.velocity = new Vector2(dashSpeed, 0);
+            rig.velocity = new Vector2(-dashSpeed, 0);
         }
     }
 

@@ -182,7 +182,11 @@ public class PlayerFSM : BaseFSM
             {
                 shouldControlJumpUp = false;
             }
+            if (controller.HandleDashInput())
+            {
+                controller.stateMachine.TransitState(new DashState(controller));
 
+            }
             if (controller.isDie)
             {
                 controller.stateMachine.TransitState(new DieState(controller));
@@ -296,7 +300,11 @@ public class PlayerFSM : BaseFSM
             {
                 controller.stateMachine.TransitState(new JumpState(controller, false));
             }
+            if (controller.HandleDashInput())
+            {
+                controller.stateMachine.TransitState(new DashState(controller));
 
+            }
             //  death detection  判定是否死亡
             if (controller.isDie)
             {
@@ -359,6 +367,7 @@ public class PlayerFSM : BaseFSM
             else if (controller.dashTimer >= controller.dashTime)
             {
                 controller.dashTimer = 0;
+                controller.stateMachine.TransitState(new JumpState(controller, false));
             }
 
         }
