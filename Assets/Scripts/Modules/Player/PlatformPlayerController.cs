@@ -141,11 +141,10 @@ public class PlatformPlayerController : Observer
         if (groundSpeed > 0)
         {
             rig.velocity = new Vector2(dashSpeed, 0);
-
         }
         if (groundSpeed < 0)
         {
-
+            rig.velocity = new Vector2(dashSpeed, 0);
         }
     }
 
