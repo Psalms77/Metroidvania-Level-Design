@@ -73,7 +73,11 @@ public class PlayerFSM : BaseFSM
                 controller.stateMachine.TransitState(new JumpState(controller, false));
             }
 
+            if (controller.HandleDashInput())
+            {
+                controller.stateMachine.TransitState(new DashState(controller));
 
+            }
 
             if (controller.isDie)
             {
@@ -335,10 +339,32 @@ public class PlayerFSM : BaseFSM
         }
         public override void HandleUpdate()
         {
+            controller.rig.gravityScale = 0;
+
+            //left & right flip
+            if (controller.groundSpeed > 0)
+            {
+                controller.transform.localScale = new Vector3(1, 1, 1);
+            }
+            if (controller.groundSpeed < 0)
+            {
+                controller.transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            if (controller.dashTimer < controller.dashTime)
+            {
+                controller.Dash();
+                controller.dashTimer += Time.deltaTime;
+            }
+            else if (controller.dashTimer >= controller.dashTime)
+            {
+                controller.dashTimer = 0;
+            }
 
         }
         public override void HandleFixedUpdate()
         {
+   
 
         }
         public override void ExitState()

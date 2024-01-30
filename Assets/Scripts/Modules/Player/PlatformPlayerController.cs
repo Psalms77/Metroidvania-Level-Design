@@ -44,9 +44,17 @@ public class PlatformPlayerController : Observer
     public float groundSpeed;
     [HideInInspector]
     public bool isCoyote = false;
+    [HideInInspector]
+    public float dashTime = 1f;
+    [HideInInspector]
+    public float dashTimer = 0f;
+    public float dashSpeed = 1f;
+
+
+    [HideInInspector]
 
     public bool canDoubleJump = false;
-
+    [HideInInspector]
     public int jumpCount = 0;
 
     //private bool isPulling = false;
@@ -127,6 +135,21 @@ public class PlatformPlayerController : Observer
         rig.velocity = new Vector2(speed, rig.velocity.y);
         prevInputX = inputX;
     }
+
+    public void Dash()
+    {
+        if (groundSpeed > 0)
+        {
+            rig.velocity = new Vector2(dashSpeed, 0);
+
+        }
+        if (groundSpeed < 0)
+        {
+
+        }
+    }
+
+
 
     public void HorizontalJumpingMove()
     {
