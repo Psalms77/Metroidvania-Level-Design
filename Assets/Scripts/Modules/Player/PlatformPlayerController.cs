@@ -49,7 +49,8 @@ public class PlatformPlayerController : Observer
     [HideInInspector]
     public float dashTimer = 0f;
     public float dashSpeed = 10f;
-
+    public bool dashEnabled = false;
+    public bool doubleJumpEnabled = false;
 
     [HideInInspector]
 
@@ -197,6 +198,8 @@ public class PlatformPlayerController : Observer
     {
         if (isJumpInput && (IsOnGround() || isCoyote || canDoubleJump))
         {
+            if (!doubleJumpEnabled && canDoubleJump) { return false; }
+
             isCoyote = false;
             isJumpInput = false;
             jumpCount++;

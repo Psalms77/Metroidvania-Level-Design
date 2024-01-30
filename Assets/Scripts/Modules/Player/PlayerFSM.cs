@@ -358,17 +358,26 @@ public class PlayerFSM : BaseFSM
             {
                 controller.transform.localScale = new Vector3(-1, 1, 1);
             }
-
-            if (controller.dashTimer < controller.dashTime)
+            if (!controller.dashEnabled)
             {
-                controller.Dash();
-                controller.dashTimer += Time.deltaTime;
-            }
-            else if (controller.dashTimer >= controller.dashTime)
-            {
-                controller.dashTimer = 0;
                 controller.stateMachine.TransitState(new JumpState(controller, false));
             }
+            else
+            {
+                if (controller.dashTimer < controller.dashTime)
+                {
+                    controller.Dash();
+                    controller.dashTimer += Time.deltaTime;
+                }
+                else if (controller.dashTimer >= controller.dashTime)
+                {
+                    controller.dashTimer = 0;
+                    controller.stateMachine.TransitState(new JumpState(controller, false));
+                }
+            }
+
+
+
 
         }
         public override void HandleFixedUpdate()
