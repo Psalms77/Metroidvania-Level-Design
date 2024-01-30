@@ -364,6 +364,8 @@ public class PlayerFSM : BaseFSM
             }
             else
             {
+                controller.animator.SetBool("isDashing", true);
+                controller.animator.Play("Player_Dash");
                 if (controller.dashTimer < controller.dashTime)
                 {
                     controller.Dash();
@@ -372,7 +374,9 @@ public class PlayerFSM : BaseFSM
                 else if (controller.dashTimer >= controller.dashTime)
                 {
                     controller.dashTimer = 0;
+                    
                     controller.stateMachine.TransitState(new JumpState(controller, false));
+
                 }
             }
 
@@ -387,6 +391,8 @@ public class PlayerFSM : BaseFSM
         }
         public override void ExitState()
         {
+            controller.animator.Play("Player_Idle");
+            controller.animator.SetBool("isDashing", false);
 
         }
         public override void HandleCollide2D(Collision2D collision)
