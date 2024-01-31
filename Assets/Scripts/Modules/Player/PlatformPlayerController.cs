@@ -214,9 +214,9 @@ public class PlatformPlayerController : Observer
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             return true;
-        } 
+        }
         return false;
-    }   
+    }
 
 
 
