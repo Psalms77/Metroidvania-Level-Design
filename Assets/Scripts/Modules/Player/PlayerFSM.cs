@@ -78,6 +78,13 @@ public class PlayerFSM : BaseFSM
                 controller.stateMachine.TransitState(new DashState(controller));
 
             }
+            if (controller.HandleMeleeInput()) {
+                
+                controller.stateMachine.TransitState(new MeleeState(controller));
+            
+            
+            }
+
 
             if (controller.isDie)
             {

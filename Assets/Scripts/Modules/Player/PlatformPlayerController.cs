@@ -51,7 +51,9 @@ public class PlatformPlayerController : Observer
     public float dashSpeed = 10f;
     public bool dashEnabled = false;
     public bool doubleJumpEnabled = false;
-
+    public Transform atkpoint;
+    public float atkRange;
+    public float atkDamage;
     [HideInInspector]
 
     public bool canDoubleJump = false;
@@ -232,8 +234,19 @@ public class PlatformPlayerController : Observer
     public void MeleeAttack()
     {
 
-    }
+        //Debug.Log("¹¥»÷Åö×²¼ì²â");
+        Collider2D[] atkHits = Physics2D.OverlapCircleAll(atkpoint.position, atkRange);
 
+        foreach (Collider2D item in atkHits)
+        {
+            //Debug.Log(item.gameObject.name);
+            if (item.transform.CompareTag("Enemy"))
+            {
+                EventManager.SendNotification(EventName.playerMelees, atkDamage, item,gameObject);
+            }
+        }
+
+    }
 
 
 
