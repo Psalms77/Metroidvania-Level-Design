@@ -102,6 +102,14 @@ public class PlatformPlayerController : Observer
             lastRespawn = (Transform)arg[0];
         });
 
+        AddEventListener(EventName.getDash, (object[] arg) => {
+            dashEnabled = true;
+        });
+
+        AddEventListener(EventName.getDoubleJump, (object[] arg) => {
+            doubleJumpEnabled = true;
+        });
+
     }
     void Start()
     {

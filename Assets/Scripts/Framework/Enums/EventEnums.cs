@@ -13,6 +13,7 @@ public enum EventName
 
     respawnUpdated,     // 重生点更新, param: transform respawn
 
-
+    getDoubleJump,
+    getDash,
 }
 
