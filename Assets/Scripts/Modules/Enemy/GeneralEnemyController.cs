@@ -14,18 +14,23 @@ public class GeneralEnemyController : Observer
     private float hitTimer = 0;
 
     public bool isdead = false;
+    private SpriteRenderer sr;
+    public Material blankMaterial;
+    private Material defaultMaterial;
+
+
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
+        defaultMaterial = sr.material;
         hp = maxhp;
         AddEventListener(EventName.playerMelees, (object[] arg) => {
             dmg = (float)arg[0];
             GameObject go = (GameObject)arg[1];
-            Debug.Log("event received");
             if (go == this.gameObject)
             {
                 Takehit();
-                Debug.Log("enemy take hit");
             }
         
         
@@ -67,7 +72,15 @@ public class GeneralEnemyController : Observer
         {
             hp = hp - dmg;
             hasTakenHit = true;
+            sr.material = blankMaterial;
+            StartCoroutine(ResetMaterial());
         }
+    }
+
+    IEnumerator ResetMaterial()
+    {
+        yield return new WaitForSeconds(0.2f);
+        sr.material = defaultMaterial;
     }
 
     void Respawn()

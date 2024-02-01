@@ -55,6 +55,7 @@ public class PlayerFSM : BaseFSM
         public override void HandleUpdate()
         {
 
+            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.rig.velocity.x));
 
             controller.HandleJumpInput();
             controller.HorizontalMove();
@@ -150,7 +151,7 @@ public class PlayerFSM : BaseFSM
             controller.HandleJumpInput();
             controller.HorizontalJumpingMove();
 
-            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.groundSpeed));
+            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.rig.velocity.x));
             controller.animator.SetBool("isOnGround", controller.IsOnGround());
             controller.animator.SetFloat("VerticalSpeed", controller.rig.velocity.y);
 
@@ -284,7 +285,7 @@ public class PlayerFSM : BaseFSM
             controller.HorizontalMove();
             controller.groundSpeed = controller.rig.velocity.x;
 
-            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.groundSpeed));
+            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.rig.velocity.x));
             controller.animator.SetBool("isOnGround", controller.IsOnGround());
             controller.animator.SetFloat("VerticalSpeed", controller.rig.velocity.y);
 
@@ -514,6 +515,8 @@ public class PlayerFSM : BaseFSM
         public override void ExitState()
         {
             //controller.animator.SetBool("isAttacking", false);
+            controller.animator.SetFloat("HorizontalSpeed", Mathf.Abs(controller.rig.velocity.x));
+
         }
         public override void HandleCollide2D(Collision2D collision)
         {

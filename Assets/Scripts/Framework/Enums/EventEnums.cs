@@ -11,7 +11,7 @@ public enum EventName
     enemyRespawn,       // 敌人重置,  param: null
 
 
-    respawnUpdated,     // 重生点更新, param: gameobject respawn
+    respawnUpdated,     // 重生点更新, param: transform respawn
 
 
 }

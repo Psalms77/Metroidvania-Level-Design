@@ -41,7 +41,7 @@ public class Respawn : Observer
     {
         if (collision.gameObject.tag == "Player")
         {
-            EventManager.SendNotification(EventName.respawnUpdated, gameObject);
+            EventManager.SendNotification(EventName.respawnUpdated, gameObject.transform);
         }
     }
 }
