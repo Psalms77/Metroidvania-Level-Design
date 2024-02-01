@@ -427,7 +427,24 @@ public class PlayerFSM : BaseFSM
         }
         public override void HandleUpdate()
         {
-            
+            controller.animator.SetBool("isAttacking", true);
+
+            controller.animator.Play("Player_LightAttack");
+            controller.MeleeAttack();
+            if (Input.GetKeyDown(KeyCode.Mouse0) && controller.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.33f && controller.animator.GetCurrentAnimatorStateInfo(0).IsName("Player_LightAttack"))    // also add animation detecter here if the animation finished with input, goes to seqattack
+            {
+                //Debug.Log("检测到输入，进入连段攻击");
+                controller.stateMachine.TransitState(new MeleeSeqState(controller));
+            }
+            // add timer here to detect if the atk animation has finished. if finished && no input, return to idle state
+            if (controller.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f && controller.animator.GetCurrentAnimatorStateInfo(0).IsName("Player_LightAttack"))
+            {
+                //Debug.Log("检测不到输入直接返回idle");
+                controller.animator.Play("Player_Idle");
+                controller.animator.SetBool("isAttacking", false);
+                controller.stateMachine.TransitState(new IdleState(controller));
+            }
+
         }
         public override void HandleFixedUpdate()
         {
@@ -435,7 +452,7 @@ public class PlayerFSM : BaseFSM
         }
         public override void ExitState()
         {
-            
+            //controller.animator.SetBool("isAttacking", false);
         }
         public override void HandleCollide2D(Collision2D collision)
         {
@@ -448,7 +465,51 @@ public class PlayerFSM : BaseFSM
         }
     }
 
+    public class MeleeSeqState : PlayerBaseState
+    {
+        public MeleeSeqState(PlatformPlayerController mono) : base(mono)
+        {
+            controller = mono;
+            EnterState();
+        }
+        public override void EnterState()
+        {
 
+        }
+        public override void HandleUpdate()
+        {
+            controller.animator.SetBool("isAttacking", true);
+
+            controller.animator.SetTrigger("seqAtk");
+            controller.MeleeAttack();
+
+
+            if (controller.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f && controller.animator.GetCurrentAnimatorStateInfo(0).IsName("Player_SeqAttack"))
+            {
+                //Debug.Log("检测不到输入直接返回idle");
+                controller.animator.Play("Player_Idle");
+                controller.animator.SetBool("isAttacking", false);
+                controller.stateMachine.TransitState(new IdleState(controller));
+            }
+        }
+        public override void HandleFixedUpdate()
+        {
+
+        }
+        public override void ExitState()
+        {
+            //controller.animator.SetBool("isAttacking", false);
+        }
+        public override void HandleCollide2D(Collision2D collision)
+        {
+
+        }
+
+        public override void HandleTrigger2D(Collider2D collider)
+        {
+
+        }
+    }
 
 
     public class DieState : PlayerBaseState

@@ -242,7 +242,8 @@ public class PlatformPlayerController : Observer
             //Debug.Log(item.gameObject.name);
             if (item.transform.CompareTag("Enemy"))
             {
-                EventManager.SendNotification(EventName.playerMelees, atkDamage, item,gameObject);
+                EventManager.SendNotification(EventName.playerMelees, atkDamage, item.gameObject);
+
             }
         }
 
@@ -255,6 +256,18 @@ public class PlatformPlayerController : Observer
 
 
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (atkpoint == null)
+        {
+            return;
+        }
+        //Gizmos.DrawWireCube();
+        Gizmos.DrawWireSphere(atkpoint.position, atkRange);
+        Gizmos.DrawWireSphere(atkpoint.position, atkRange);
+    }
 
+#endif
 
 }
