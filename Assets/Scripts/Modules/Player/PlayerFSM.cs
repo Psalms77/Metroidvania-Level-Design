@@ -474,6 +474,7 @@ public class PlayerFSM : BaseFSM
         }
 
         public override void HandleTrigger2D(Collider2D collider)
+
         {
             
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GeneralEnemyController : Observer
 {
+    public float maxhp;
     public float hp;
 
     private float dmg;
@@ -12,8 +13,11 @@ public class GeneralEnemyController : Observer
     public float hitCooldown;
     private float hitTimer = 0;
 
+    public bool isdead = false;
+
     private void Awake()
     {
+        hp = maxhp;
         AddEventListener(EventName.playerMelees, (object[] arg) => {
             dmg = (float)arg[0];
             GameObject go = (GameObject)arg[1];
@@ -25,6 +29,9 @@ public class GeneralEnemyController : Observer
             }
         
         
+        });
+        AddEventListener(EventName.enemyRespawn, (object[] arg) => {
+            Respawn();
         });
     }
 
@@ -38,6 +45,11 @@ public class GeneralEnemyController : Observer
     // Update is called once per frame
     void Update()
     {
+        if (hp<0) { isdead = true; }
+        if (isdead)
+        {
+            this.gameObject.SetActive(false);
+        }
         if (hitTimer < hitCooldown && hasTakenHit)
         {
             hitTimer += Time.deltaTime;
@@ -57,4 +69,13 @@ public class GeneralEnemyController : Observer
             hasTakenHit = true;
         }
     }
+
+    void Respawn()
+    {
+        isdead = false;
+        hp = maxhp;
+        this.gameObject.SetActive(true);
+    }
+
+
 }

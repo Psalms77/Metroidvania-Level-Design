@@ -8,7 +8,7 @@ public enum EventName
     playerSpawn,        // 玩家生成, param: null
 
 
-
+    enemyRespawn,       // 敌人重置,  param: null
 
 
 }

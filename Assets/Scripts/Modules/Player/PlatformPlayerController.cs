@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlatformPlayerController : Observer
@@ -61,6 +61,9 @@ public class PlatformPlayerController : Observer
     [HideInInspector]
     public int jumpCount = 0;
 
+    public Transform lastRespawn;
+    public float maxhp;
+    public float hp;
     //private bool isPulling = false;
     public Vector2 velo;
 
@@ -81,13 +84,19 @@ public class PlatformPlayerController : Observer
         runningAcceleration = playerConfig.runningAcceleration;
         smallestJumpFrameCount = playerConfig.smallestJumpFrameCount;
         runningBrakingAbility = playerConfig.runningBrakingAbility;
-        
+        maxhp = playerConfig.maxPlayerHp;
+        hp = maxhp;
         rig = GetComponent<Rigidbody2D>();
         groundCheckPoint = transform.Find("GroundCheckPoint").gameObject;
         animator = transform.Find("PlayerSprite").GetComponent<Animator>();
         stateMachine = new PlayerFSM(this);
         rig.gravityScale = initGravityScale;
-        
+
+
+        AddEventListener(EventName.playerRespawn, (object[] arg) => {
+            Respawn();
+        });
+
 
     }
     void Start()
@@ -250,9 +259,20 @@ public class PlatformPlayerController : Observer
 
     }
 
+    void Respawn()
+    {
+        hp = maxhp;
+        transform.position = lastRespawn.position;
 
+    }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Respawn"))
+        {
+            lastRespawn = collision.transform;
+        }
+    }
 
 
 
