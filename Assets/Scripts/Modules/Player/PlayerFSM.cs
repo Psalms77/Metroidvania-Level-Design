@@ -194,6 +194,13 @@ public class PlayerFSM : BaseFSM
                 controller.stateMachine.TransitState(new DashState(controller));
 
             }
+            if (controller.HandleMeleeInput())
+            {
+
+                controller.stateMachine.TransitState(new MeleeState(controller));
+
+
+            }
             if (controller.isDie)
             {
                 controller.stateMachine.TransitState(new DieState(controller));
@@ -310,6 +317,13 @@ public class PlayerFSM : BaseFSM
             if (controller.HandleDashInput())
             {
                 controller.stateMachine.TransitState(new DashState(controller));
+
+            }
+            if (controller.HandleMeleeInput())
+            {
+
+                controller.stateMachine.TransitState(new MeleeState(controller));
+
 
             }
             //  death detection  判定是否死亡

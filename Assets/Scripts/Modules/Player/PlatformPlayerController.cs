@@ -54,6 +54,7 @@ public class PlatformPlayerController : Observer
     public Transform atkpoint;
     public float atkRange;
     public float atkDamage;
+    public bool hasAttacked = false;
     [HideInInspector]
 
     public bool canDoubleJump = false;
@@ -233,7 +234,7 @@ public class PlatformPlayerController : Observer
 
     public void MeleeAttack()
     {
-
+        rig.velocity = new Vector2(0, rig.velocity.y);
         //Debug.Log("¹¥»÷Åö×²¼ì²â");
         Collider2D[] atkHits = Physics2D.OverlapCircleAll(atkpoint.position, atkRange);
 
