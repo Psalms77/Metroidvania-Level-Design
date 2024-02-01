@@ -97,6 +97,10 @@ public class PlatformPlayerController : Observer
             Respawn();
         });
 
+        AddEventListener(EventName.respawnUpdated, (object[] arg) =>
+        {
+            lastRespawn = (Transform)arg[0];
+        });
 
     }
     void Start()
@@ -264,14 +268,6 @@ public class PlatformPlayerController : Observer
         hp = maxhp;
         transform.position = lastRespawn.position;
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Respawn"))
-        {
-            lastRespawn = collision.transform;
-        }
     }
 
 

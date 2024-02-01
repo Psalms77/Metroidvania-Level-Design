@@ -36,4 +36,12 @@ public class Respawn : Observer
 
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            EventManager.SendNotification(EventName.respawnUpdated, gameObject);
+        }
+    }
 }
